@@ -12,8 +12,7 @@ for (let i = 0; i < 9; i++) {
     'title': `Widget #${i}`,
     'summary': 'Hello item!',
     'description': 'It\'s a great item',
-    'cost': i,
-     'qty': 0
+    'cost': i
   })
 }
 // console.log(_catalog)
@@ -24,9 +23,9 @@ const _removeItem = (item) => {
 }
 const sortCart = () => _cartItems.sort((a, b) => a > b ? 1 : -1)
 
-const _findCartItem = (id) => _cartItems.find(item => item.id === id)
+const _findCartItem = (item) => _cartItems.find(cartItem => item.id === cartItem.id)
+const _increaseItem = (item) => item.qty = item.qty + 1
 
-const _increaseItem = (item) => item.qty++
 const _decreaseItem = (item) => {
   item.qty -= 1
   if(item.qty === 0)
@@ -35,10 +34,14 @@ const _decreaseItem = (item) => {
 
 const _addItem = (item) => {
   const itemInCart = _findCartItem(item)
+  console.log('Item in cart', itemInCart)
     if(!itemInCart)
       _cartItems.push(Object.assign({'qty': 1}, item))
     else
       _increaseItem(itemInCart)
+
+  console.log('Added item', item)
+  console.log('Cart is ', _cartItems)
 }
 
 const _cartTotal = (qty = 0, total = 0) => {
@@ -58,15 +61,20 @@ const AppStore = Object.assign(EventEmitter.prototype, {
     this.on(CHANGE_EVENT, callback)
   },
   removeChangeListener (callback) {
-    this.remove(CHANGE_EVENT, callback)
+    this.removeListener(CHANGE_EVENT, callback)
   },
   getCart() {
     return _cartItems
   },
+
   getCatalog() {
     return _catalog.map((item) => {
       return Object.assign({}, item, _cartItems.find(cartItem => cartItem.id === item.id))
     })
+  },
+
+  getCartTotal(){
+    return _cartTotal
   },
 
   dispatcherIndex: register(function (action) {
@@ -85,8 +93,9 @@ const AppStore = Object.assign(EventEmitter.prototype, {
           break
       default:
           console.log('No action type found!')
-
+          break;
     }
+    AppStore.emitChange()
   })
 })
 

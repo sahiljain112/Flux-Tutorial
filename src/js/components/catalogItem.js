@@ -1,5 +1,5 @@
 import React from 'react'
-import CartButton from './CartButton'
+import CartButton from './cartButton'
 import Actions from '../actions/appActions'
 
 export default (props) => {
@@ -9,6 +9,6 @@ export default (props) => {
             <p> {props.item.description} </p>
             <p> ${props.item.cost} </p>
             <br/>
-            <CartButton txt = "Add To Cart" handler = {Actions.addItem.bind(null, props.item.id)} />
+            <CartButton txt = "Add To Cart" handler = {Actions.addItem.bind(null, props.item)} />
          </div>
-       }
+ }
