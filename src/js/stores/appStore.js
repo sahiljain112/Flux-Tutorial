@@ -1,5 +1,5 @@
-import { dispatch, register } from './dispatchers/appDispatcher'
-import AppConstants from './constants/appConstants'
+import { dispatch, register } from '../dispatchers/appDispatcher'
+import AppConstants from '../constants/appConstants'
 import { EventEmitter } from 'events'
 
 const CHANGE_EVENT = 'change'
@@ -16,7 +16,7 @@ for (let i = 0; i < 9; i++) {
      'qty': 0
   })
 }
-
+// console.log(_catalog)
 let _cartItems = []
 
 const _removeItem = (item) => {
@@ -60,12 +60,12 @@ const AppStore = Object.assign(EventEmitter.prototype, {
   removeChangeListener (callback) {
     this.remove(CHANGE_EVENT, callback)
   },
-  getCart: function () {
+  getCart() {
     return _cartItems
   },
-  getCatalog: function () {
+  getCatalog() {
     return _catalog.map((item) => {
-      Object.assign({}, item, _cartItems.find(cartItem => cartItem.id === item.id))
+      return Object.assign({}, item, _cartItems.find(cartItem => cartItem.id === item.id))
     })
   },
 
@@ -89,3 +89,5 @@ const AppStore = Object.assign(EventEmitter.prototype, {
     }
   })
 })
+
+export default AppStore
