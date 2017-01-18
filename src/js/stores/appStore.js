@@ -34,14 +34,13 @@ const _decreaseItem = (item) => {
 
 const _addItem = (item) => {
   const itemInCart = _findCartItem(item)
-  console.log('Item in cart', itemInCart)
     if(!itemInCart)
       _cartItems.push(Object.assign({'qty': 1}, item))
     else
       _increaseItem(itemInCart)
 
-  console.log('Added item', item)
-  console.log('Cart is ', _cartItems)
+  // console.log('Added item', item)
+  // console.log('Cart is ', _cartItems)
 }
 
 const _cartTotal = (qty = 0, total = 0) => {
@@ -49,6 +48,7 @@ const _cartTotal = (qty = 0, total = 0) => {
     total = total + (item.qty * item.cost)
     qty = qty + item.qty
   })
+  console.log(qty, total, 'BAHAA')
   return {qty, total}
 }
 
@@ -73,7 +73,7 @@ const AppStore = Object.assign(EventEmitter.prototype, {
     })
   },
 
-  getCartTotal(){
+  getCartTotal() {
     return _cartTotal
   },
 
