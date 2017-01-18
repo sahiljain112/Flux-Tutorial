@@ -2,37 +2,20 @@ import React from 'React'
 import Actions from '../actions/appActions'
 import CartItem from './cartItem'
 import AppStore from '../stores/appStore'
+import StoreComponent from '../higherOrderComponents/storeComponent'
 
-const getCartItems = () => AppStore.getCart()
+const getCartItems = () => { return { cartItems: AppStore.getCart()} }
 
-export default class Cart extends React.Component {
-  constructor() {
-    super()
-    this.state = { cartItems: getCartItems() }
-    this._onChange = this._onChange.bind(this)
-  }
+const Cart = ( props ) => {
 
-  componentWillMount() {
-    AppStore.addChangeListener(this._onChange)
-  }
-
-  componentWillUnmount() {
-    AppStore.removeChangeListener(this._onChange)
-  }
-
-  _onChange() {
-    this.setState({
-      cartItems: getCartItems()
-    })
-  }
-
-  render () {
     let total = 0
-    const cartItems = this.state.cartItems.map((item, i) => {
+    console.log(props)
+    const cartItems = props.cartItems.map((item, i) => {
       let subtotal = item.cost * item.qty
       total = subtotal + total
       return <CartItem key= {i} item = {item} />
     })
+    console.log('Hello')
     return (
       <div>
       <h1> Cart </h1>
@@ -58,5 +41,6 @@ export default class Cart extends React.Component {
       </table>
       </div>
     )
-  }
 }
+
+export default StoreComponent(Cart, getCartItems)

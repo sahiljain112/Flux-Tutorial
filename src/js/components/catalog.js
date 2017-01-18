@@ -1,23 +1,20 @@
 import React from 'react'
 import AppStore from '../stores/appStore'
 import CatalogItem from './catalogItem'
+import StoreComponent from '../higherOrderComponents/storeComponent'
 
-const getCatalog = () => AppStore.getCatalog()
+const getCatalog = () => {
+  return { items: AppStore.getCatalog() }
+}
 
-export default class Catalog extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      items: getCatalog()
-    }
-  }
-  render () {
-    //console.log('State is', AppStore.getCatalog())
-    const items = this.state.items.map((item) => <CatalogItem key={item.id} item={item} />)
-    return(
+const Catalog = (props) => {
+
+    const items = props.items.map((item) => <CatalogItem key={item.id} item={item} />)
+    return (
       <div className='catalog'>
         { items }
       </div>
    )
-  }
 }
+
+export default StoreComponent(Catalog, getCatalog)
