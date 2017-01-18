@@ -1,8 +1,8 @@
 import React from 'React'
-import Actions from '../actions/appActions'
+import Actions from '../../actions/appActions'
 import CartItem from './cartItem'
-import AppStore from '../stores/appStore'
-import StoreComponent from '../higherOrderComponents/storeComponent'
+import AppStore from '../../stores/appStore'
+import StoreComponent from '../../higherOrderComponents/storeComponent'
 
 const getCartItems = () => { return { cartItems: AppStore.getCart()} }
 

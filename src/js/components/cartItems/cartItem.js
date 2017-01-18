@@ -1,6 +1,6 @@
 import React from 'React'
 import CartButton from './cartButton'
-import Actions from '../actions/appActions'
+import Actions from '../../actions/appActions'
 
 export default (props) => {
   let subtotal = props.item.qty * props.item.cost

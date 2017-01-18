@@ -1,6 +1,6 @@
 import React from 'react'
-import CartButton from './cartButton'
-import Actions from '../actions/appActions'
+import CartButton from '../cartItems/cartButton'
+import Actions from '../../actions/appActions'
 
 export default (props) => {
   return <div data-key={props.key}>
@@ -9,6 +9,6 @@ export default (props) => {
             <p> {props.item.description} </p>
             <p> ${props.item.cost} {props.item.qty && `(${props.item.qty} in cart)`} </p>
             <br/>
-            <CartButton txt = "Add To Cart" handler = {Actions.addItem.bind(null, props.item)} />
+            <CartButton txt = "Add!" handler = {Actions.addItem.bind(null, props.item)} />
          </div>
  }

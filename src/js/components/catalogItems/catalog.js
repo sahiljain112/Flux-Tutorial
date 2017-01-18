@@ -1,7 +1,7 @@
 import React from 'react'
-import AppStore from '../stores/appStore'
+import AppStore from '../../stores/appStore'
 import CatalogItem from './catalogItem'
-import StoreComponent from '../higherOrderComponents/storeComponent'
+import StoreComponent from '../../higherOrderComponents/storeComponent'
 
 const getCatalog = () => {
   return { items: AppStore.getCatalog() }
